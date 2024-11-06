@@ -1,0 +1,62 @@
+html,body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    box-sizing: content-box;
+}
+
+.dp-ph{
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid black;
+    width: fit-content;
+}
+
+.arrows{
+    display:grid;
+    grid-template-columns: auto auto auto;
+    gap: .5rem;
+}
+
+.arrows button:first-child{
+  grid-column: 2 / -1;
+}
+
+.arrows button{
+    height: 4rem;
+    width: 4rem;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.arrows button:hover{
+  transition: 200ms;
+}
+
+.arrows > div{
+    gap: .5rem;
+    display: flex;
+}
+
+.bordered{
+  border-radius: 2rem;
+  padding: .3rem .5rem;
+  border: 0;
+  font-size: 1rem;
+  color: white;
+  text-transform: uppercase;
+}
+
+#startBtn{
+  background-color: darkgreen;
+}
+
+#stopBtn{
+  background-color:darkred;
+}
