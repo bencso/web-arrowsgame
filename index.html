@@ -14,14 +14,14 @@
         DISPLAY_PLACEHOLDER
     </div>
     <div class="arrows">
-        <button><span class="fa6-solid--up-long"></span></button>
-        <button><span class="fa6-solid--left-long"></span></button>
-        <button><span class="fa6-solid--down-long"></span></button>
-        <button><span class="fa6-solid--right-long"></span></button>
+        <button id="upBtn" data-key="up"><span class="fa6-solid--up-long"></span></button>
+        <button id="leftBtn" data-key="left"><span class="fa6-solid--left-long"></span></button>
+        <button id="downBtn" data-key="down"><span class="fa6-solid--down-long"></span></button>
+        <button id="rightBtn" data-key="right"><span class="fa6-solid--right-long"></span></button>
     </div>
     <div class="actions-btn">
-        <button class="bordered" id="startBtn">Start</button>
-        <button class="bordered" id="stopBtn">Stop</button>
+        <button class="bordered" id="startBtn" onclick="startGame()">Start</button>
+        <button class="bordered" id="stopBtn" onclick="stopGame()">Stop</button>
     </div>
     <script src="js/main.js"></script>
 </body>

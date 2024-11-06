@@ -25,6 +25,10 @@ html,body{
   grid-column: 2 / -1;
 }
 
+.arrows button.active{
+  background-color: darkblue;
+}
+
 .arrows button{
     height: 4rem;
     width: 4rem;
