@@ -44,8 +44,9 @@ body {
   padding: 1rem;
 }
 
+/*TODO: Modify the game__info */
 .game__info,
-.game__action-btn {
+.game__action-btn{
   padding: 1rem;
   border-radius: 5px;
   background-color: var(--tertiary-color);
@@ -59,7 +60,10 @@ body {
 }
 
 .game__info {
-  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
 }
 
 .game__placeholder {
@@ -87,7 +91,7 @@ body {
   gap: 0.5rem;
 }
 
-.game__arrows button {
+.game__arrows button{
   height: 4rem;
   width: 4rem;
   font-size: 2rem;
@@ -107,12 +111,19 @@ body {
 }
 
 .game__arrows button:hover,
-.game__action-btn:hover {
+.game__action-btn:hover,
+.game__arrows .hovered {
   background-color: transparent;
   border: 2px solid var(--tertiary-color);
 }
 
-.game__action-btn {
+.game__arrows button:focus,
+.game__action-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--quaternary-color);
+}
+
+.game__action-btn,.leaderboard__reset-btn {
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
@@ -139,7 +150,6 @@ body {
   flex-direction: column;
   justify-content: center;
   padding: 1rem;
-  gap: 1rem;
   border-radius: 5px;
   background-color: var(--tertiary-color);
   color: var(--secondary-color);
@@ -160,19 +170,65 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   padding: 0;
+  margin: 0;
+}
+
+.leaderboard__list p{
+  margin: 0 0 1rem 0;
+  text-align: center;
 }
 
 .leaderboard__list li {
   display: flex;
-  justify-content: space-between;
+  
 }
 
 .leaderboard__item {
   display: flex;
   justify-content: space-between;
+}
+
+.leaderboard__input{
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 2px solid  var(--quaternary-color);
+  background-color: var(--tertiary-color);
+  color: v var(--quaternary-color);
+  font-weight: bold;
+  text-align: center;
+  transition: 200ms;
+}
+
+.leaderboard__input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.leaderboard__input::placeholder {
+  color: var(--quaternary-color);
+}
+
+.leaderboard__reset-btn {
+  align-self: center;
+}
+
+.leaderboard__reset-btn {
+  padding: 0.5rem;
+  border-radius: 5px;
+  background-color: var(--tertiary-color);
+  color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
+  border: 2px solid transparent;
+  transition: 200ms;
+  margin-top: 1rem;
+}
+
+.leaderboard__reset-btn:hover {
+  color: var(--quaternary-color);
 }
 
 .leaderboard__item span:first-child {
@@ -189,24 +245,29 @@ body {
     justify-content: center;
   }
 
-  .leaderboard {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    right: 0;
-    left: 0;
-    transform: translateY(0);
-    padding: 1rem 0;
-    top: auto;
-    border-radius: 0;
-  }
+.leaderboard {
+  bottom: 0;
+  width: 100%;
+  right: 0;
+  left: 0;
+  transform: translateY(0);
+  padding: 1rem 0;
+  top: auto;
+  border-radius: 0;
+  position: fixed;
+  z-index: 1;
+  justify-content: center;
+}
 
-  .leaderboard__list {
-    margin-left: 1rem;
-    margin-right: 1rem;
-  }  
+.leaderboard__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 0.3rem;
+}
 
-  .game__info {
-    border-radius: 0;
-  }
+.leaderboard__list li:nth-child(5) {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
 }

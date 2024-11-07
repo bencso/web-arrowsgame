@@ -12,13 +12,19 @@
     <div class="game">
       <div class="game__placeholder">Press Start or Enter to play the game</div>
       <div class="game__arrows">
-        <button class="game__arrow game__arrow--up" id="upBtn" data-key="up">
+        <button
+          class="game__arrow game__arrow--up"
+          id="upBtn"
+          data-key="up"
+          tabindex="-1"
+        >
           <span class="fa6-solid--up-long"></span>
         </button>
         <button
           class="game__arrow game__arrow--left"
           id="leftBtn"
           data-key="left"
+          tabindex="-1"
         >
           <span class="fa6-solid--left-long"></span>
         </button>
@@ -26,6 +32,7 @@
           class="game__arrow game__arrow--down"
           id="downBtn"
           data-key="down"
+          tabindex="-1"
         >
           <span class="fa6-solid--down-long"></span>
         </button>
@@ -33,6 +40,7 @@
           class="game__arrow game__arrow--right"
           id="rightBtn"
           data-key="right"
+          tabindex="-1"
         >
           <span class="fa6-solid--right-long"></span>
         </button>
@@ -40,7 +48,8 @@
       <button
         class="game__action-btn game__action-btn--bordered"
         id="actionBtn"
-        onclick="startGame()"
+        tabindex="-1"
+        onclick="startGame(); this.blur();"
       >
         Start
       </button>
@@ -52,13 +61,22 @@
       </p>
     </div>
     <div class="leaderboard">
+      <input
+      type="text"
+      class="leaderboard__input"
+      id="nameInput"
+      placeholder="Enter your name"
+      />
       <h2 class="leaderboard__title">Leaderboard (TOP 5)</h2>
       <ul class="leaderboard__list" id="leaderboardList">
-        <li class="leaderboard__item">
-            <span class="leaderboard__name">John Doe</span>
-            <span class="leaderboard__score">20 sec</span>
-        </li>
       </ul>
+      <button
+        class="leaderboard__reset-btn"
+        id="resetBtn"
+        onclick="resetLeaderboard();"
+      >
+        Reset Leaderboard
+      </button>
     </div>
     <script src="js/main.js"></script>
   </body>

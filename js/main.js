@@ -17,6 +17,7 @@ function startGame() {
   updateActionButton("Stop", stopGame);
   toggleTimerBlink(false);
   getDirection();
+  this.blur();
 }
 
 function stopGame() {
@@ -26,7 +27,9 @@ function stopGame() {
   updateActionButton("Start", startGame);
   removeEventListeners();
   toggleTimerBlink(true);
+  leaderboard();
   points = 0;
+  this.blur();
 }
 
 function preloadDirections() {
@@ -48,6 +51,7 @@ function getDirection() {
   direction = preloadedDirections.shift();
   preloadedDirections.push(randomDirection());
   updateSlider(direction);
+  //? If the player reacts, always restart the counting, because then you can play to infinity.
   resetTimer();
   addEventListeners();
 }
@@ -67,13 +71,13 @@ function handleKeyDown(event) {
   const keyDirection = event.key.toLowerCase().replace("arrow", "");
   if (keyDirection === "escape") stopGame();
   if (directions.includes(keyDirection)) checkDirection(keyDirection);
+  highlightButton(keyDirection);
 }
 
 function checkDirection(keyDirection) {
   const isCorrect = keyDirection === direction;
   dpPhElement.style.color = isCorrect ? "#00FF00" : "#FF0000";
   if (isCorrect) points++;
-  highlightButton(keyDirection);
   setTimeout(() => {
     dpPhElement.style.color = "#FAF0E6";
     unhighlightButton(keyDirection);
@@ -83,15 +87,17 @@ function checkDirection(keyDirection) {
 }
 
 function highlightButton(keyDirection) {
-  document
-    .querySelector(`[data-key="${keyDirection}"]`)
-    .classList.add("hovered");
+  const keyElement = document.querySelector(`[data-key="${keyDirection}"]`);
+  if (keyElement) {
+    keyElement.classList.add("hovered");
+  }
 }
 
 function unhighlightButton(keyDirection) {
-  document
-    .querySelector(`[data-key="${keyDirection}"]`)
-    .classList.remove("hovered");
+  const keyElement = document.querySelector(`[data-key="${keyDirection}"]`);
+  if (keyElement) {
+    keyElement.classList.remove("hovered");
+  }
 }
 
 function startTimer() {
@@ -115,17 +121,23 @@ function formatTime(time) {
 
 function calculateAvgRT() {
   const avgRT =
-    reactionTimes.reduce((acc, curr) => acc + curr, 0) / reactionTimes.length;
-  const minRT = Math.min(...reactionTimes);
-  const successRate = (points / reactionTimes.length) * 100;
-  dpPhElement.textContent =
-    reactionTimes.length > 0
-      ? `AVG reaction time: ${avgRT.toFixed(
-          2
-        )}ms, Fastest reaction: ${minRT} ms, Score: ${
-          reactionTimes.length
-        }/${points}, Success rate: ${successRate.toFixed(2)}%`
-      : `AVG reaction time: 0ms, Fastest reaction: 0 ms, Score: 0/0, Success rate: 0%`;
+    reactionTimes.reduce((acc, curr) => acc + curr, 0) / reactionTimes.length ||
+    0;
+  const minRT = Math.min(...reactionTimes) || 0;
+  const successRate = (points / reactionTimes.length) * 100 || 0;
+  const infoBox = document.querySelector(".game__info");
+  if (minRT !== 0 && successRate !== 0 && avgRT !== 0) {
+    infoBox.innerHTML = `
+    <p>Avg RT: ${avgRT.toFixed(2)} ms</p>
+    <p>Min RT: ${minRT.toFixed(2)} ms</p>
+    <p>Success Rate: ${successRate.toFixed(2)}%</p>
+  `;
+  } else {
+    infoBox.innerHTML = `
+    <p>Play the game to see your stats!</p>
+  `;
+  }
+  dpPhElement.innerHTML = `Play again? Press Enter or click the Start button.`;
   reactionTimes = [];
 }
 
@@ -151,4 +163,37 @@ function toggleTimerBlink(shouldBlink) {
 
 window.addEventListener("keydown", (event) => {
   if (event.key.toLowerCase() === "enter" && !running) startGame();
+});
+
+function leaderboard() {
+  const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+  const userName = document.querySelector("#nameInput").value || "Anonymous";
+  const userScore = points;
+  leaderboard.push({ name: userName, score: userScore });
+  leaderboard.sort((a, b) => b.score - a.score);
+  localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+  renderLeaderboard(leaderboard);
+}
+
+function renderLeaderboard(leaderboard) {
+  const leaderboardElement = document.querySelector("#leaderboardList");
+  leaderboardElement.innerHTML = "";
+  if (leaderboard.length === 0) {
+    leaderboardElement.innerHTML = "<p>No scores yet!</p>";
+    return;
+  }
+  leaderboard.slice(0, 5).forEach((user, index) => {
+    leaderboardElement.innerHTML += `
+      <li>${index + 1}. ${user.name} - ${user.score}</li>
+    `;
+  });
+}
+
+function resetLeaderboard() {
+  localStorage.removeItem("leaderboard");
+  renderLeaderboard([]);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderLeaderboard(JSON.parse(localStorage.getItem("leaderboard")) || []);
 });
