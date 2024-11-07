@@ -1,66 +1,112 @@
-html,body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 3rem;
-    box-sizing: content-box;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --primary-color: #352F44;
+  --secondary-color: #FAF0E6;
+  --tertiary-color: #5C5470;
+  --quaternary-color: #B9B4C7;
 }
 
-.dp-ph{
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-    border: 1px solid black;
-    width: fit-content;
+html,
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+  box-sizing: content-box;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
-.arrows{
-    display:grid;
-    grid-template-columns: auto auto auto;
-    gap: .5rem;
+.dp-ph {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  width: fit-content;
 }
 
-.arrows button:first-child{
+/* ARROWS */
+.arrows {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: .5rem;
+}
+
+.arrows button:first-child {
   grid-column: 2 / -1;
 }
 
-.arrows button.active{
-  background-color: darkblue;
-}
-
-.arrows button{
-    height: 4rem;
-    width: 4rem;
-    font-size: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.arrows button:hover{
+.arrows button {
+  height: 4rem;
+  width: 4rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
   transition: 200ms;
+  background-color: var(--tertiary-color);
+  border-radius: 50%;
+  color: var(--secondary-color);
+  border: 2px solid transparent;
+
 }
 
-.arrows > div{
-    gap: .5rem;
-    display: flex;
+.arrows button:hover {
+  background-color: transparent;
+  border: 2px solid var(--tertiary-color);
 }
 
-.bordered{
-  border-radius: 2rem;
-  padding: .3rem .5rem;
-  border: 0;
-  font-size: 1rem;
-  color: white;
+.arrows>div {
+  gap: .5rem;
+  display: flex;
+}
+
+.actions-btn {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.actions-btn button {
+  padding: 1rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--tertiary-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+  transition: 200ms;
+  border: 2px solid transparent;
+  font-weight: bold;
   text-transform: uppercase;
 }
 
-#startBtn{
-  background-color: darkgreen;
+.actions-btn button:hover{
+  background-color: transparent;
+  border: 2px solid var(--tertiary-color);
 }
 
-#stopBtn{
-  background-color:darkred;
+.actions-btn button:disabled {
+  background-color: var(--quaternary-color);
+  color: var(--tertiary-color);
+  cursor: not-allowed;
+}
+
+.hovered {
+  background-color: var(--tertiary-color);
+  color: var(--secondary-color);
+}
+/* TIMER */
+.timer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.blink {
+  display: none;
 }
