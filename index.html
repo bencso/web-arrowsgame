@@ -1,30 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/icons.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/icons.css" />
     <title>Arrows</title>
-</head>
+  </head>
 
-<body>
-    <div class="dp-ph">
-        DISPLAY_PLACEHOLDER
+  <body>
+    <div class="game">
+      <div class="game__placeholder">Press Start or Enter to play the game</div>
+      <div class="game__arrows">
+        <button class="game__arrow game__arrow--up" id="upBtn" data-key="up">
+          <span class="fa6-solid--up-long"></span>
+        </button>
+        <button
+          class="game__arrow game__arrow--left"
+          id="leftBtn"
+          data-key="left"
+        >
+          <span class="fa6-solid--left-long"></span>
+        </button>
+        <button
+          class="game__arrow game__arrow--down"
+          id="downBtn"
+          data-key="down"
+        >
+          <span class="fa6-solid--down-long"></span>
+        </button>
+        <button
+          class="game__arrow game__arrow--right"
+          id="rightBtn"
+          data-key="right"
+        >
+          <span class="fa6-solid--right-long"></span>
+        </button>
+      </div>
+      <button
+        class="game__action-btn game__action-btn--bordered"
+        id="actionBtn"
+        onclick="startGame()"
+      >
+        Start
+      </button>
+      <p class="game__timer game__timer--blink">
+        <span id="timer">20</span> sec
+      </p>
+      <p class="game__info">
+        Use arrow keys or buttons to move the placeholder
+      </p>
     </div>
-    <div class="arrows">
-        <button id="upBtn" data-key="up"><span class="fa6-solid--up-long"></span></button>
-        <button id="leftBtn" data-key="left"><span class="fa6-solid--left-long"></span></button>
-        <button id="downBtn" data-key="down"><span class="fa6-solid--down-long"></span></button>
-        <button id="rightBtn" data-key="right"><span class="fa6-solid--right-long"></span></button>
+    <div class="leaderboard">
+      <h2 class="leaderboard__title">Leaderboard</h2>
+      <ul class="leaderboard__list" id="leaderboardList">
+        <li class="leaderboard__item">
+            <span class="leaderboard__name">John Doe</span>
+            <span class="leaderboard__score">20 sec</span>
+        </li>
+      </ul>
     </div>
-    <div class="actions-btn">
-        <button class="bordered" id="actionBtn" onclick="startGame()">Start</button>
-    </div>
-    <p class="timer blink"><span id="timer">20</span> sec</p>
-    <p class="info">Use arrow keys or buttons to move the placeholder</p>
     <script src="js/main.js"></script>
-</body>
-
+  </body>
 </html>
