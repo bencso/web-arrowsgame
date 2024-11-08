@@ -70,8 +70,15 @@ function updateSlider(direction) {
 function handleKeyDown(event) {
   const keyDirection = event.key.toLowerCase().replace("arrow", "");
   if (keyDirection === "escape") stopGame();
-  if (directions.includes(keyDirection)) checkDirection(keyDirection);
-  highlightButton(keyDirection);
+  //? If the player reacts, only the first button press should be registered or the player could just spam the keys.
+  if (directions.includes(keyDirection)) {
+    checkDirection(keyDirection);
+    highlightButton(keyDirection);
+    window.removeEventListener("keydown", handleKeyDown);
+    setTimeout(() => {
+      window.addEventListener("keydown", handleKeyDown);
+    }, 100);
+  }
 }
 
 function checkDirection(keyDirection) {
@@ -126,16 +133,14 @@ function calculateAvgRT() {
   const minRT = Math.min(...reactionTimes) || 0;
   const successRate = (points / reactionTimes.length) * 100 || 0;
   const infoBox = document.querySelector(".game__info");
-  if (minRT !== 0 && successRate !== 0 && avgRT !== 0) {
+  if (minRT !== 0 && avgRT !== 0) {
     infoBox.innerHTML = `
     <p>Avg RT: ${avgRT.toFixed(2)} ms</p>
     <p>Min RT: ${minRT.toFixed(2)} ms</p>
     <p>Success Rate: ${successRate.toFixed(2)}%</p>
   `;
   } else {
-    infoBox.innerHTML = `
-    <p>Play the game to see your stats!</p>
-  `;
+    infoBox.innerHTML = `<p>Press the correct key when the arrow appears!</p>`;
   }
   dpPhElement.innerHTML = `Play again? Press Enter or click the Start button.`;
   reactionTimes = [];
@@ -167,9 +172,19 @@ window.addEventListener("keydown", (event) => {
 
 function leaderboard() {
   const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
-  const userName = document.querySelector("#nameInput").value || "Anonymous";
+  //TODO: Random username generator...
+  const userName =
+    document.getElementById("nameInput").value ||
+    `${Math.random().toString(36).substr(2, 9)}`;
   const userScore = points;
-  leaderboard.push({ name: userName, score: userScore });
+  const existingEntryIndex = leaderboard.findIndex((p) => p.name === userName);
+  if (existingEntryIndex !== -1) {
+    if (leaderboard[existingEntryIndex].score < userScore) {
+      leaderboard[existingEntryIndex].score = userScore;
+    }
+  } else {
+    if (userScore > 0) leaderboard.push({ name: userName, score: userScore });
+  }
   leaderboard.sort((a, b) => b.score - a.score);
   localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
   renderLeaderboard(leaderboard);
