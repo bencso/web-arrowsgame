@@ -47,7 +47,7 @@ A projekt futtatásához csak egy böngésző szükséges:
 
 ## 🤝 Közreműködés
 
-Ez egy lezárt iskolai projekt, amely webes játékfejlesztés gyakorlás céljából készült.
+Ez egy lezárt iskolai projekt.
 
 ---
 
