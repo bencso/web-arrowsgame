@@ -1,4 +1,4 @@
-# web-arrowsgame 🎯⬆️
+# ArrowsGame (Web) 🎯⬆️
 
 > Reflex-alapú ügyességi játék - Iskolai projekt vanilla JavaScript-tel
 
