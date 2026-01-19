@@ -45,9 +45,9 @@ A projekt futtatásához csak egy böngésző szükséges:
 2. Nyisd meg az `index.html` fájlt böngészőben
 3. Kezdj játszani! 🎮
 
-## 🤝 Közreműködés
+## 📄 Licensz
 
-Ez egy lezárt iskolai projekt.
+MIT License - Szabadon használható és módosítható
 
 ---
 
